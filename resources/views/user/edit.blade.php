@@ -15,22 +15,22 @@
         @csrf       
                 <div class = "form-group">			
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value = "{{$findone->name}}">    
+                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value = "{{$findone->name}}" required>    
                 </div>
                 <div class = "form-group">			
                     <label for="name">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" value = "{{$findone->email}}">    
+                    <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" value = "{{$findone->email}}" required>    
                 </div>		
                 <div class = "form-group">			
                     <label for="name">Phone</label>
-                    <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile number" name="mobile" value = "{{$findone->mobile}}">    
+                    <input type="number" class="form-control" id="mobile" placeholder="Enter Mobile number" name="mobile" value = "{{$findone->mobile}}" required>    
                 </div>	
                 <div class="form-group">
                     <label for="Address">Address</label>
-                    <textarea class="form-control" rows="5" id="address">{{$findone->address}}</textarea>
+                    <textarea class="form-control" rows="5" id="address" name="address" required>{{$findone->address}}</textarea>
                 </div>      
                 <div class="form-group">
-                    <button  class="btn btn-success" type="submit" id="register" name="register">Upadate</button></td>		
+                    <button  class="btn btn-success" type="submit" id="update" name="update">Upadate</button></td>		
                 </div>	
         </form> 
         </div>

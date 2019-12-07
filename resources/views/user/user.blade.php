@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title></title>\
+        <title></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -17,19 +17,19 @@
         @csrf       
                 <div class = "form-group">			
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">    
+                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" required>    
                 </div>
                 <div class = "form-group">			
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">    
+                    <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>    
                 </div>		
                 <div class = "form-group">			
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile number" name="mobile">    
+                    <label for="mobile">Phone</label>
+                    <input type="number" class="form-control" id="mobile" placeholder="Enter Mobile number" name="mobile" required>    
                 </div>	
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <textarea class="form-control" rows="5" id="address"></textarea>
+                    <textarea class="form-control" rows="5" id="address" name = "address" required></textarea>
                 </div>      
                 <div class="form-group">
                     <button  class="btn btn-success" type="submit" id="register" name="register">Create</button></td>		

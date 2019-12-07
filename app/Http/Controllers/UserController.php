@@ -16,9 +16,8 @@ class UserController extends Controller
             'email' => 'required',    
             'mobile' => 'required',    
             'address' => 'required'      
-        ]);
-        
-        //dd($validatedata);             
+        ]);       
+        // dd($validatedata);             
         $user->name = $validatedata['name'];
         $user->email = $validatedata['email'];
         $user->mobile = $validatedata['mobile'];     
