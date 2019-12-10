@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use DB;
 
 class UserController extends Controller
 {
+    //  @Function Name:store.
+    //  @Purpose:using store function to store the user data.
+    //  @Input Parameters:post request parametes
+    //  @Output:inserting the new user information.
     public function store(Request $request){
-        // dd($request);
         $user =new User();
         $validatedata = $request->validate([    
             'name' => 'required',     
@@ -17,49 +19,60 @@ class UserController extends Controller
             'mobile' => 'required',    
             'address' => 'required'      
         ]);       
-        // dd($validatedata);             
         $user->name = $validatedata['name'];
         $user->email = $validatedata['email'];
         $user->mobile = $validatedata['mobile'];     
         $user->address = $validatedata['address'];
-        $user->remember_token = $request['_token'];
         $user->save();
-        return redirect('/user/userdata')->with('success','data inserted successfully');
+        return redirect('/user/userdata')->with('success','User Inserted successfully');
     }
-          
+    
+    //  @Function Name:show.
+    //  @Purpose:fetching all the users data.
+    //  @Input Parameters:
+    //  @Output:
     public function show(){
-        // $users = DB::table('users')->get();
+    // Fetching the all users
         $users = User::all();
         return view('user/userdata', ['users' => $users]);
     }
+
+    //  @Function Name:edit.
+    //  @Purpose:By passing id of the user fetching the user information.
+    //  @Input Parameters:passing id 
+    //  @Output:showing the single user data
     public function edit($id){
-        $fetchall = User::all();
-        $findone = $fetchall->find($id);
-        // dd($findone);
-       return view('user/edit', ['findone' => $findone]);
+        $user = User::find($id);
+       return view('user/edit', ['user' => $user]);
     }
 
+    //  @Function Name:update.
+    //  @Purpose:Updating the user information.
+    //  @Input Parameters:passing user id
+    //  @Output:update the user information into the database.
     public function update(Request $request,$id){
-        // dd($request);
         $validatedata = $request->validate([    
             'name' => 'required',     
             'email' => 'required',    
             'mobile' => 'required',    
             'address' => 'required'      
         ]);
-        $users = User::find($id);
-        // dd($finduserid);             
-        $users->name = $validatedata['name'];
-        $users->email = $validatedata['email'];
-        $users->mobile = $validatedata['mobile'];     
-        $users->address = $validatedata['address'];
-        $users->save();
-        return redirect('user/userdata')->with('success','Data updated successfully');
+        $user = User::find($id);
+        $user->name = $validatedata['name'];
+        $user->email = $validatedata['email'];
+        $user->mobile = $validatedata['mobile'];     
+        $user->address = $validatedata['address'];
+        $user->save();
+        return redirect('user/userdata')->with('success','User Updated successfully');
     }
 
+    //  @Function Name:delete.
+    //  @Purpose:deleting the user information from the database.
+    //  @Input Parameters:passing user id.
+    //  @Output:deletes the user information from the database.
     public function delete($id){
-        $fetchone = User::find($id);   
-        $fetchone->delete();   
-        return redirect('/user/userdata')->with('success','user deleted successfully');      
+        $user = User::find($id);   
+        $user->delete();   
+        return redirect('/user/userdata')->with('success','User Deleted successfully');      
     }
 }
