@@ -12,19 +12,27 @@ class UserController extends Controller
     //  @Input Parameters:post request parametes
     //  @Output:inserting the new user information.
     public function store(Request $request){
-        $user =new User();
-        $validatedata = $request->validate([    
-            'name' => 'required',     
-            'email' => 'required',    
-            'mobile' => 'required',    
-            'address' => 'required'      
-        ]);       
-        $user->name = $validatedata['name'];
-        $user->email = $validatedata['email'];
-        $user->mobile = $validatedata['mobile'];     
-        $user->address = $validatedata['address'];
-        $user->save();
-        return redirect('/user/userdata')->with('success','User Inserted successfully');
+        //checks email id exists in database.
+        $fetchall = User::all();
+        foreach($fetchall as $key => $value){
+           if($value['email'] != $request['email']){
+                $user =new User();
+                $validatedata = $request->validate([    
+                    'name' => 'required',     
+                    'email' => 'required|email',    
+                    'mobile' => 'required|digits:10',    
+                    'address' => 'required'      
+                ]);       
+                $user->name = $validatedata['name'];
+                $user->email = $validatedata['email'];
+                $user->mobile = $validatedata['mobile'];     
+                $user->address = $validatedata['address'];
+                $user->save();
+                return redirect('/user/userdata')->with('success','User Inserted successfully');
+            }else{
+                return redirect('/user');
+            }
+        }
     }
     
     //  @Function Name:show.
@@ -51,19 +59,27 @@ class UserController extends Controller
     //  @Input Parameters:passing user id
     //  @Output:update the user information into the database.
     public function update(Request $request,$id){
-        $validatedata = $request->validate([    
-            'name' => 'required',     
-            'email' => 'required',    
-            'mobile' => 'required',    
-            'address' => 'required'      
-        ]);
-        $user = User::find($id);
-        $user->name = $validatedata['name'];
-        $user->email = $validatedata['email'];
-        $user->mobile = $validatedata['mobile'];     
-        $user->address = $validatedata['address'];
-        $user->save();
-        return redirect('user/userdata')->with('success','User Updated successfully');
+        $fetchall = User::all();
+        foreach($fetchall as $key => $value){
+           if($value['email'] != $request['email']){
+            $validatedata = $request->validate([    
+                'name' => 'required',     
+                'email' => 'required|email',    
+                'mobile' => 'required|digits:10',    
+                'address' => 'required'      
+            ]);
+            $user = User::find($id);
+            dd($user);
+            $user->name = $validatedata['name'];
+            $user->email = $validatedata['email'];
+            $user->mobile = $validatedata['mobile'];     
+            $user->address = $validatedata['address'];
+            $user->save();
+            return redirect('user/userdata')->with('success','User Updated successfully');
+            }else{
+            return redirect('user/edit/'.$id);
+            }
+        }
     }
 
     //  @Function Name:delete.
